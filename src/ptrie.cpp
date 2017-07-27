@@ -14,7 +14,7 @@ void PTrie::remove(std::string& word)
     //TODO
 }
 
-void PTrie::add(std::string word)
+void PTrie::add(std::string word, unsigned freq)
 {
     bool success;
     for (auto c: childs)
@@ -35,9 +35,9 @@ void PTrie::add(std::string word)
                 childs.push_back(trie);
             }
             else if (i == c->get_root().size() && i < word.size())
-                c->add(word.substr(i, word.size() - i));
+                c->add(word.substr(i, word.size() - i), freq);
             else
-                c->set_word(true);
+                c->set_word(freq);
             return;
         }
     }

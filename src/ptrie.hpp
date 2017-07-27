@@ -14,10 +14,10 @@ class PTrie
             this->root = root;
             this->word = word;
         };
-        PTrie(std::vector<std::string> words) : word(false)
+        PTrie(std::vector<std::string> words, std::vector<unsigned> freqs) : word(false)
         {
-            for (auto w: words)
-                this->add(w);
+            for (unsigned i = 0; i < words.size(); i++)
+                this->add(words.at(i), freqs.at(i));
         };
         ~PTrie()
         {
@@ -33,7 +33,7 @@ class PTrie
         void add_child(PTrie *child) { childs.push_back(child); };
         void set_root(std::string root) { this->root = root; };
         void set_word(bool word) { this->word = word; };
-        void add(std::string word);
+        void add(std::string word, unsigned freq);
         void remove(std::string& word);
         friend std::ostream& operator <<(std::ostream& stream, const PTrie& trie)
         {
