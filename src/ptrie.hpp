@@ -17,7 +17,7 @@ class PTrie
             this->root = root;
             this->freq = freq;
         };
-        PTrie(std::vector<std::string> words, std::vector<unsigned> freqs) : freq(0)
+        PTrie(std::vector<std::string> words, std::vector<long> freqs) : freq(0)
         {
             for (unsigned i = 0; i < words.size(); i++)
                 this->add(words.at(i), freqs.at(i));

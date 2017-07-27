@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     v.push_back("caca");
     v.push_back("cacao");
 
-    std::vector<unsigned> u;
+    std::vector<long> u;
     u.push_back(10);
     u.push_back(56);
     u.push_back(1);
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     clock_t tStart = clock();
 
     std::string word;
-    unsigned freq;
+    long freq;
     while (file >> word)
     {
         file >> freq;
