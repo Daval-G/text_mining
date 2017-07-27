@@ -14,7 +14,7 @@ Contraintes:
  * au minimum 300 qps/core en distance = 1
  * au minimum 30 qps/core en distance = 2
  * les programmes ne doivent jamais consommer plus de 512M de RAM
- * Langages autorisés: C/C++ (boost autorisé, précisé la version dans le fichier README), Java, autre (avec justification)
+ * Langages autorisés: C/C++ (boost autorisé, préciser la version dans le fichier README), Java, autre (avec justification)
  * Autotools ou CMake si C/C++; Ant si Java; autre (avec justification)
 
 Livrable:

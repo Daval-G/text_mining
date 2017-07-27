@@ -1,7 +1,8 @@
 #include <ptrie.hpp>
 
-int main()
+int main(int argc, char *argv[])
 {
+    // Ptrie test
     std::vector<std::string> v;
     v.push_back("haha");
     v.push_back("halo");
@@ -21,5 +22,27 @@ int main()
     for (auto w: words)
         std::cout << w << " ";
     std::cout << std::endl;
-    return 0;
+    v.clear();
+    u.clear();
+
+    // Read test
+    if (argc == 0) return 0;
+
+    std::ifstream file;
+    file.open(argv[1]);
+    if (! file.is_open()) return 1;
+
+    clock_t tStart = clock();
+
+    std::string word;
+    unsigned freq;
+    while (file >> word)
+    {
+        file >> freq;
+        v.push_back(word);
+        u.push_back(freq);
+    }
+    PTrie dict(v, u);
+
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 }
