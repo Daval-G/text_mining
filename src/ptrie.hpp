@@ -11,13 +11,13 @@
 class PTrie
 {
     public:
-        PTrie() : word(false) {};
-        PTrie(std::string root, bool word)
+        PTrie() : freq(0) {};
+        PTrie(std::string root, long freq)
         {
             this->root = root;
-            this->word = word;
+            this->freq = freq;
         };
-        PTrie(std::vector<std::string> words, std::vector<unsigned> freqs) : word(false)
+        PTrie(std::vector<std::string> words, std::vector<unsigned> freqs) : freq(0)
         {
             for (unsigned i = 0; i < words.size(); i++)
                 this->add(words.at(i), freqs.at(i));
@@ -31,12 +31,12 @@ class PTrie
     public:
         std::string get_root() const { return root; };
         std::vector<PTrie *> get_childs() const { return childs; };
-        bool is_word() const { return word; };
+        bool is_word() const { return (freq != 0); };
         void get_words(std::vector<std::string>& res, std::string current = "") const;
         void add_child(PTrie *child) { childs.push_back(child); };
         void set_root(std::string root) { this->root = root; };
-        void set_word(bool word) { this->word = word; };
-        void add(std::string word, unsigned freq);
+        void set_freq(long freq) { this->freq = freq; };
+        void add(std::string word, long freq);
         void remove(std::string& word);
         friend std::ostream& operator <<(std::ostream& stream, const PTrie& trie)
         {
@@ -48,7 +48,7 @@ class PTrie
 
 
     private:
-        bool word;
+        long freq;
         std::string root;
         std::vector<PTrie *> childs;
 };
