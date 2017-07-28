@@ -24,8 +24,6 @@ class PTrie
         };
         ~PTrie()
         {
-            for (auto c: childs)
-                delete(c);
         };
 
     public:

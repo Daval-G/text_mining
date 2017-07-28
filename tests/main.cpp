@@ -3,6 +3,10 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#ifdef __APPLE__
+#include <mach/mach_host.h>
+#include <mach/task.h>
+#endif /* __APPLE__ */
 
 int parseLine(char* line)
 {
@@ -15,8 +19,22 @@ int parseLine(char* line)
     return i;
 }
 
-int getValue()
+void getValue()
 {
+    #ifdef __APPLE__
+    struct task_basic_info t_info;
+    mach_msg_type_number_t t_info_count = TASK_BASIC_INFO_COUNT;
+
+    if (KERN_SUCCESS != task_info(mach_task_self(),
+                TASK_BASIC_INFO, (task_info_t)&t_info, 
+                &t_info_count))
+    {
+        return;
+    }
+    std::cout << "res size: " << t_info.resident_size << std::endl;
+    std::cout << "virtual size: " << t_info.virtual_size << std::endl;
+
+    #else
     //Note: this value is in KB!
     FILE* file = fopen("/proc/self/status", "r");
     int result = -1;
@@ -29,7 +47,8 @@ int getValue()
         }
     }
     fclose(file);
-    return result;
+    std::cout << result << "Kb" << std::endl;
+    #endif
 }
 
 int main(int argc, char *argv[])
@@ -90,7 +109,7 @@ int main(int argc, char *argv[])
         u.push_back(freq);
     }
     PTrie dict(v, u);
-    std::cout << getValue() << "Kb\n";
+    getValue();
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
     return 0;
