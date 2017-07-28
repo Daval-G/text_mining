@@ -10,6 +10,9 @@ class CPTrie
         struct Node
         {
             Node() : pf(0), fd(0), freq(0) {}
+            Node(std::string s, long f) : edge(s), pf(0), fd(0), freq(f) {}
+            Node(std::string s, long f, int fd) : edge(s), pf(0), fd(fd), freq(f) {}
+            Node(int pf, std::string s, long f) : edge(s), pf(pf), fd(0), freq(f) {}
             std::string edge;
             size_t pf;
             size_t fd;
@@ -26,7 +29,7 @@ class CPTrie
                 add(words[i], freqs[i]);
         }
         ~CPTrie() {}
-        void add(std::string word, long freq, int j = 0);
+        void add(std::string& word, long freq, int j = 0);
         bool remove(std::string& word, int j = 0) {return false;}
         void print()
         {

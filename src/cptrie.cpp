@@ -2,15 +2,12 @@
 
 
 
-void CPTrie::add(std::string word, long freq, int j)
+void CPTrie::add(std::string& word, long freq, int j)
 {
     if (!nodes[0].pf)
     {
         nodes[0].pf = nodes.size();
-        Node new_node;
-        new_node.edge = word;
-        new_node.freq = freq;
-        nodes.push_back(new_node);
+        nodes.push_back(Node(word, freq));
         return;
     }
     Node node = nodes[nodes[0].pf];
@@ -29,29 +26,20 @@ void CPTrie::add(std::string word, long freq, int j)
         }
         if (i < node.edge.size())
         {
-            Node inter;
-            inter.edge = node.edge.substr(i, node.edge.size() - i);
+            std::string s = node.edge.substr(i, node.edge.size() - i);
             nodes[index].edge = node.edge.substr(0, i);
             if (i + j == word.size())
             {
-                inter.pf = node.pf;
-                inter.freq = node.freq;
+                nodes.push_back(Node(node.pf, s, node.freq));
                 nodes[index].freq = freq;
-                nodes[index].pf = nodes.size();
-                nodes.push_back(inter);
+                nodes[index].pf = nodes.size() - 1;
             }
             else
             {
-                Node new_node;
-                new_node.freq = freq;
-                new_node.edge = word.substr(i + j, word.size() - i - j);
-                inter.freq = node.freq;
+                nodes.push_back(Node(node.pf, s, node.freq));
                 nodes[index].freq = 0;
-                inter.pf = node.pf;
                 nodes[index].pf = nodes.size();
-                new_node.fd = nodes.size() + 1;
-                nodes.push_back(new_node);
-                nodes.push_back(inter);
+                nodes.push_back(Node(word.substr(i + j, word.size() - i - j), freq, nodes.size() - 1));
             }
             return;
         }
@@ -69,8 +57,5 @@ void CPTrie::add(std::string word, long freq, int j)
         }
     }
     nodes[index].fd = nodes.size();
-    Node new_node;
-    new_node.edge = word.substr(j, word.size() - j);
-    new_node.freq = freq;
-    nodes.push_back(new_node);
+    nodes.push_back(Node(word.substr(j, word.size() - j), freq));
 }
