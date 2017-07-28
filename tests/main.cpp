@@ -1,8 +1,10 @@
-#include <ptrie.hpp>
+#include <cptrie.hpp>
 
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#include <iostream>
+#include <fstream>
 #ifdef __APPLE__
 #include <mach/mach_host.h>
 #include <mach/task.h>
@@ -72,13 +74,15 @@ int main(int argc, char *argv[])
     u.push_back(4);
     u.push_back(697);
 
-    PTrie trie(v, u);
-    std::cout << trie << std::endl;
-    std::vector<std::string> words;
-    trie.get_words(words);
-    for (auto w: words)
-        std::cout << w << " ";
-    std::cout << std::endl;
+    CPTrie trie(v, u);
+    trie.print();
+    /*
+    //std::cout << trie << std::endl;
+    //std::vector<std::string> words;
+    //trie.get_words(words);
+    //for (auto w: words)
+        //std::cout << w << " ";
+    //std::cout << std::endl;
     std::string s2("hah");
     std::cout << trie.remove(s2) << std::endl;
 
@@ -88,6 +92,7 @@ int main(int argc, char *argv[])
     for (auto w: words2)
         std::cout << w << " ";
     std::cout << std::endl;
+    */
     v.clear();
     u.clear();
 
@@ -108,7 +113,8 @@ int main(int argc, char *argv[])
         v.push_back(word);
         u.push_back(freq);
     }
-    PTrie dict(v, u);
+    CPTrie dict(v, u);
+    //std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
     getValue();
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 

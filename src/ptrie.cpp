@@ -1,5 +1,13 @@
 #include "ptrie.hpp"
 
+int PTrie::nb_nodes()
+{
+    int res = 1;
+    for (auto &c: childs)
+        res += c->nb_nodes();
+    return res;
+}
+
 void PTrie::get_words(std::vector<std::string>& res, std::string current) const
 {
     current += root;
@@ -34,7 +42,7 @@ void PTrie::distance(std::string& word)
     //TODO
 }
 
-void PTrie::add(std::string word, long freq, int j)
+void PTrie::add(std::string& word, long freq, int j)
 {
     for (auto &c: childs)
     {

@@ -3,7 +3,6 @@
 #include <time.h>
 #include <vector>
 #include <stdlib.h>
-#include <fstream>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -30,11 +29,12 @@ class PTrie
         std::string get_root() const { return root; };
         std::vector<PTrie *> get_childs() const { return childs; };
         bool is_word() const { return (freq != 0); };
+        int nb_nodes();
         void get_words(std::vector<std::string>& res, std::string current = "") const;
         void add_child(PTrie *child) { childs.push_back(child); };
         void set_root(std::string root) { this->root = root; };
         void set_freq(long freq) { this->freq = freq; };
-        void add(std::string word, long freq = 0, int j = 0);
+        void add(std::string& word, long freq = 0, int j = 0);
         void add(std::string& word, int j = 0);
         bool remove(std::string& word, int j = 0);
         void distance(std::string& word);
