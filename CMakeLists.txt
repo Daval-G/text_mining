@@ -11,8 +11,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 include_directories(
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/tests
+        ${CMAKE_SOURCE_DIR}/app
 )
 
 # Adds source directory
 add_subdirectory(src)
 add_subdirectory(tests)
+add_subdirectory(app)

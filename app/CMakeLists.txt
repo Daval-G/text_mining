@@ -1,0 +1,2 @@
+add_executable(OurTextMiningApp main_compiler.cpp)
+target_link_libraries(OurTextMiningApp tree)

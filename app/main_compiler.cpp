@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 3 || strcmp(argv[1], "-h")
+    if (argc != 3 || strcmp(argv[1], "-h"))
     {
         std::cerr << "Usage: " << argv[0] << " /path/to/word/freq.txt /path/to/output/dict.bin" << std::endl;
         return 1;
@@ -39,6 +39,6 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    file.write((char *) &PTrie, sizeof(PTrie));
-    file.close();
+    binary.write((char *) &dict, sizeof(PTrie));
+    binary.close();
 }
