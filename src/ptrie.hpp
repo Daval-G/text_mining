@@ -36,8 +36,10 @@ class PTrie
         void add_child(PTrie *child) { childs.push_back(child); };
         void set_root(std::string root) { this->root = root; };
         void set_freq(long freq) { this->freq = freq; };
-        void add(std::string word, long freq);
-        void remove(std::string& word);
+        void add(std::string word, long freq = 0, int j = 0);
+        void add(std::string& word, int j = 0);
+        bool remove(std::string& word, int j = 0);
+        void distance(std::string& word);
         friend std::ostream& operator <<(std::ostream& stream, const PTrie& trie)
         {
             stream << trie.get_root();

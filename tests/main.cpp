@@ -37,6 +37,9 @@ int main(int argc, char *argv[])
     // Ptrie test
     std::vector<std::string> v;
     v.push_back("haha");
+    v.push_back("hahi");
+    v.push_back("haha");
+    v.push_back("hahu");
     v.push_back("halo");
     v.push_back("caca");
     v.push_back("cacao");
@@ -45,6 +48,9 @@ int main(int argc, char *argv[])
     u.push_back(10);
     u.push_back(56);
     u.push_back(1);
+    u.push_back(2);
+    u.push_back(3);
+    u.push_back(4);
     u.push_back(697);
 
     PTrie trie(v, u);
@@ -52,6 +58,15 @@ int main(int argc, char *argv[])
     std::vector<std::string> words;
     trie.get_words(words);
     for (auto w: words)
+        std::cout << w << " ";
+    std::cout << std::endl;
+    std::string s2("hah");
+    std::cout << trie.remove(s2) << std::endl;
+
+    std::cout << trie << std::endl;
+    std::vector<std::string> words2;
+    trie.get_words(words2);
+    for (auto w: words2)
         std::cout << w << " ";
     std::cout << std::endl;
     v.clear();
@@ -77,4 +92,6 @@ int main(int argc, char *argv[])
     PTrie dict(v, u);
     std::cout << getValue() << "Kb\n";
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+    return 0;
 }
