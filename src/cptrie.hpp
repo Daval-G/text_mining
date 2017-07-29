@@ -20,11 +20,11 @@ class CPTrie
         };
     
     public:
-        CPTrie() { Node n; nodes.push_back(n); }
+        CPTrie() { nodes.push_back(Node()); }
         CPTrie(std::vector<std::string>& words, std::vector<long> freqs)
         {
-            Node n;
-            nodes.push_back(n);
+            nodes.reserve(words.size() * 2);
+            nodes.push_back(Node());
             for (unsigned i = 0; i < words.size(); i++)
                 add(words[i], freqs[i]);
         }
