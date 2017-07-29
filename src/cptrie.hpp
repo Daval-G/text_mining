@@ -31,19 +31,8 @@ class CPTrie
         ~CPTrie() {}
         void add(std::string& word, long freq, int j = 0);
         bool remove(std::string& word, int j = 0) {return false;}
-        void print()
-        {
-            std::cout << "size: " << nodes.size() << "\n";
-            for (size_t i = 0; i < nodes.size(); ++i)
-                std::cout << nodes[i].edge << " ";
-        }
-        friend std::ostream& operator <<(std::ostream& stream, const CPTrie& trie)
-        {
-            stream << "size: " << trie.nodes.size() << "\n";
-            for (size_t i = 0; i < trie.nodes.size(); ++i)
-                stream << trie.nodes[i].edge << " ";
-            return stream;
-        }
+        friend std::ostream& print(std::ostream& stream, const CPTrie& trie, int index);
+        friend std::ostream& operator <<(std::ostream& stream, const CPTrie& trie);
 
     private:
         std::vector<Node> nodes;

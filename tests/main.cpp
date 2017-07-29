@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
     u.push_back(697);
 
     CPTrie trie(v, u);
-    trie.print();
+    std::cout << trie << std::endl;
     /*
     //std::cout << trie << std::endl;
     //std::vector<std::string> words;
