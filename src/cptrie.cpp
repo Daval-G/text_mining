@@ -87,3 +87,18 @@ std::ostream& operator <<(std::ostream& stream, const CPTrie& trie)
 {
     return print(stream, trie, 0);
 }
+
+void CPTrie::write(std::ostream& os)
+{
+    typename std::vector<Node>::size_type size = nodes.size();
+    os.write((char*)&size, sizeof(size));
+    os.write((char*)&nodes[0], nodes.size() * sizeof(Node));
+}
+
+void CPTrie::read(std::istream& is)
+{
+    typename std::vector<Node>::size_type size = 0;
+    is.read((char*)&size, sizeof(size));
+    nodes.resize(size);
+    is.read((char*)&nodes[0], nodes.size() * sizeof(Node));
+}

@@ -29,8 +29,10 @@ class CPTrie
                 add(words[i], freqs[i]);
         }
         ~CPTrie() {}
+        size_t nb_nodes() { return nodes.size() - 1; }
+        void write(std::ostream& os);
+        void read(std::istream& is);
         void add(std::string& word, long freq, int j = 0);
-        bool remove(std::string& word, int j = 0) {return false;}
         friend std::ostream& print(std::ostream& stream, const CPTrie& trie, int index);
         friend std::ostream& operator <<(std::ostream& stream, const CPTrie& trie);
 

@@ -1,4 +1,5 @@
 #include <cptrie.hpp>
+#include <ptrie.hpp>
 
 #include "stdlib.h"
 #include "stdio.h"
@@ -97,7 +98,7 @@ int main(int argc, char *argv[])
     u.clear();
 
     // Read test
-    if (argc == 0) return 0;
+    if (argc == 1) return 0;
 
     std::ifstream file;
     file.open(argv[1]);
@@ -114,9 +115,15 @@ int main(int argc, char *argv[])
         u.push_back(freq);
     }
     CPTrie dict(v, u);
-    //std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
-    getValue();
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+    std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
+    getValue();
+    if (argc == 3)
+    {
+        std::ofstream file;
+        file.open(argv[2]);
+        dict.write(file);
+    }
 
     return 0;
 }
