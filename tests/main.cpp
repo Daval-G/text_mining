@@ -77,23 +77,6 @@ int main(int argc, char *argv[])
     u.push_back(697);
 
     CPTrieDisk trie(v, u);
-    //std::cout << trie << std::endl;
-
-    /*
-    if (argc == 3)
-    {
-        std::ofstream out;
-        out.open(argv[2]);
-        trie.write(out);
-        out.close();
-        std::ifstream in;
-        in.open(argv[2]);
-        CPTrie trie2;
-        trie2.read(in);
-        std::cout << trie2 << std::endl;
-        return 0;
-    }
-    */
 
     v.clear();
     u.clear();
@@ -118,15 +101,6 @@ int main(int argc, char *argv[])
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
     getValue();
-    /*
-    if (argc == 3)
-    {
-        std::ofstream file;
-        file.open(argv[2]);
-        dict.write(file);
-        file.close();
-    }
-    */
 
     tStart = clock();
     std::ofstream writer;
