@@ -77,40 +77,6 @@ int main(int argc, char *argv[])
 
     CPTrie trie(v, u);
     std::cout << trie << std::endl;
-
-    /*
-    if (argc == 3)
-    {
-        std::ofstream out;
-        out.open(argv[2]);
-        trie.write(out);
-        out.close();
-        std::ifstream in;
-        in.open(argv[2]);
-        CPTrie trie2;
-        trie2.read(in);
-        std::cout << trie2 << std::endl;
-        return 0;
-    }
-    */
-
-    /*
-    //std::cout << trie << std::endl;
-    //std::vector<std::string> words;
-    //trie.get_words(words);
-    //for (auto w: words)
-        //std::cout << w << " ";
-    //std::cout << std::endl;
-    std::string s2("hah");
-    std::cout << trie.remove(s2) << std::endl;
-
-    std::cout << trie << std::endl;
-    std::vector<std::string> words2;
-    trie.get_words(words2);
-    for (auto w: words2)
-        std::cout << w << " ";
-    std::cout << std::endl;
-    */
     v.clear();
     u.clear();
 
@@ -122,7 +88,6 @@ int main(int argc, char *argv[])
     if (! file.is_open()) return 1;
 
     clock_t tStart = clock();
-
     std::string word;
     long freq;
     while (file >> word)
@@ -135,13 +100,22 @@ int main(int argc, char *argv[])
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
     getValue();
-    if (argc == 3)
-    {
-        std::ofstream file;
-        file.open(argv[2]);
-        dict.write(file);
-        file.close();
-    }
 
+    tStart = clock();
+    std::ofstream writer;
+    writer.open("dict.bin", std::ios::out | std::ios::binary);
+    dict.write(writer);
+    writer.close();
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+    tStart = clock();
+    std::ifstream reader;
+    reader.open("dict.bin", std::ios::in | std::ios::binary);
+    dict = CPTrie();
+    dict.read(reader);
+    reader.close();
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+    std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
+    
     return 0;
 }

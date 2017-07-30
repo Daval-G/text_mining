@@ -1,4 +1,4 @@
-#include <ptrie.hpp>
+#include <cptrie.hpp>
 #include <cstring>
 #include <fstream>
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
         w.push_back(word);
         u.push_back(freq);
     }
-    PTrie dict(w, u);
+    CPTrie dict(w, u);
 
     std::fstream binary;
     binary.open(argv[2], std::ios::out | std::ios::binary);
@@ -39,6 +39,6 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    binary.write((char *) &dict, sizeof(PTrie));
+    dict.write(binary);
     binary.close();
 }
