@@ -102,6 +102,7 @@ int main(int argc, char *argv[])
     std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
     getValue();
 
+    /*
     tStart = clock();
     std::ofstream writer;
     writer.open("dict.bin", std::ios::out | std::ios::binary);
@@ -117,6 +118,7 @@ int main(int argc, char *argv[])
     reader.close();
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
+    */
     
     return 0;
 }
