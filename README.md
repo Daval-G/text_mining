@@ -94,4 +94,5 @@ Plusieurs pistes à explorer:
 
  7.     Que manque-t-il à votre correcteur orthographique pour qu’il soit à l’état de l’art ?
 
+En terme de code, il y a encore beaucoup à optimiser. En terme d'algorithme, on pourrait se contenter d'une recherche dichotomique sur le Patricia Trie Compilé. On pourrait également critiquer le choix de la distance selon les cas d'utilisation. Une meilleure gestion des chaines de caractère serait également un gros bonus.
 
