@@ -74,7 +74,7 @@ La structure implémentée est un Patricia Trie compilé. Cette structure permet
 
  5.     Proposez un réglage automatique de la distance pour un programme qui prend juste une chaîne de caractères en entrée, donner le processus d’évaluation ainsi que les résultats
 
-On peut utiliser pour commencer une simple gaussienne, voire même des GMMs. En effet, avec des moyennes et des écarts-types sur la longueur des chaines, on peut, à l'aide seuils arbitraires ou données en arguments supplémentaires:
+On peut utiliser pour commencer une simple gaussienne, voire même des GMMs. En effet, avec des moyennes et des écarts-types sur la longueur des chaines, on peut, à l'aide seuils de probabilité arbitraires ou donnés en arguments supplémentaires:
 - déterminer à partir de quand augmenter la distance devient inintéressant.
 - déterminer à partir de quand une distance devient suffisante pour espérer un résultat.
 
