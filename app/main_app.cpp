@@ -73,10 +73,30 @@ int main(int argc, char *argv[])
 
     dict.read(binary);
 
-    std::string word;
+    std::string token;
     unsigned distance;
-    while (word << std::cin && word == "approx") {
-        distance << std::cin;
-        word << std::cin;
+    char *word;
+    std::vector<std::pair<unsigned, CPTrieDisk::Result>> results;
+    while (std::cin >> token && token == "approx") {
+        std::cin >> distance;
+        std::cin >> token;
+        word = &token[0];
+
+        std::map<unsigned, CPTrieDisk::Result> map = dict.distance_map(word, strlen(word), distance);
+
+        std::cout << "OUT" << std::endl;
+        std::flush(std::cout);
+        
+        results = std::vector<std::pair<unsigned, CPTrieDisk::Result>>(map.begin(), map.end());
+
+        std::cout << "OUT" << std::endl;
+        std::flush(std::cout);
+
+        for (auto result: results)
+        {
+            std::cout << result.second.word << std::endl;
+        }
+
+        results.clear();
     }
 }
