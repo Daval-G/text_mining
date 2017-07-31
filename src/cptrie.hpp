@@ -28,7 +28,7 @@ class CPTrie
          }
     public:
         CPTrie() { nodes.push_back(Node()); }
-        CPTrie(std::vector<std::string>& words, std::vector<long> freqs)
+        CPTrie(std::vector<std::string>& words, std::vector<long>& freqs)
         {
             nodes.reserve(words.size() * 2);
             nodes.push_back(Node());

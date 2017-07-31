@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
     u.push_back(697);
 
     CPTrieDisk trie(v, u);
+    std::cout << "size: " << sizeof(CPTrieDisk::Node) << std::endl;
 
     v.clear();
     u.clear();
@@ -102,7 +103,6 @@ int main(int argc, char *argv[])
     std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
     getValue();
 
-    /*
     tStart = clock();
     std::ofstream writer;
     writer.open("dict.bin", std::ios::out | std::ios::binary);
@@ -113,12 +113,11 @@ int main(int argc, char *argv[])
     tStart = clock();
     std::ifstream reader;
     reader.open("dict.bin", std::ios::in | std::ios::binary);
-    dict = CPTrie();
+    dict = CPTrieDisk();
     dict.read(reader);
     reader.close();
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
-    */
     
     return 0;
 }

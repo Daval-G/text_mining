@@ -66,3 +66,28 @@ void CPTrieDisk::add(std::string& word, long freq, int j)
     nodes[index].fd = nodes.size();
     nodes.push_back(Node(&word[j], word.size() - j, freq));
 }
+
+void CPTrieDisk::write(std::ostream& os)
+{
+    typename std::vector<Node>::size_type size = nodes.size();
+    os.write((char*)&size, sizeof(size));
+    for (auto i = 0; i < size; ++i)
+    {
+        os.write((char*)&nodes[i], 2 * sizeof(unsigned) + sizeof(long));
+        os.write((char*)&nodes[i].size, sizeof(char));
+        os.write((char*)&nodes[i].start, nodes[i].size * sizeof(char));
+    }
+}
+
+void CPTrieDisk::read(std::istream& is)
+{
+    typename std::vector<Node>::size_type size = 0;
+    is.read((char*)&size, sizeof(size));
+    nodes.resize(size);
+    for (auto i = 0; i < size; ++i)
+    {
+        is.read((char*)&nodes[i], 2 * sizeof(unsigned) + sizeof(long));
+        is.read((char*)&nodes[i].size, sizeof(char));
+        is.read((char*)&nodes[i].start, nodes[i].size * sizeof(char));
+    }
+}

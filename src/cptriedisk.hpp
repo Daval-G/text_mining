@@ -13,12 +13,12 @@ class CPTrieDisk
             Node(char* s, char len, long f) : start(s), pf(0), fd(0), freq(f), size(len) {}
             Node(char* s, char len, long f, int fd) : start(s), pf(0), fd(fd), freq(f), size(len) {}
             Node(int pf, char* s, char len, long f) : start(s), pf(pf), fd(0), freq(f), size(len) {}
-            char* start;
-            size_t pf;
-            size_t fd;
+            unsigned pf;
+            unsigned fd;
             long freq;
+            char* start;
             char size;
-        };
+        } __attribute__((packed));
     
     public:
         CPTrieDisk() { nodes.push_back(Node()); }
@@ -32,6 +32,8 @@ class CPTrieDisk
         ~CPTrieDisk() {}
         size_t nb_nodes() { return nodes.size() - 1; }
         void add(std::string& word, long freq, int j = 0);
+        void write(std::ostream& os);
+        void read(std::istream& is);
 
     private:
         std::vector<Node> nodes;
