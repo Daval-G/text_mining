@@ -79,6 +79,12 @@ On peut utiliser pour commencer une simple gaussienne, voire même des GMMs. En 
 - déterminer à partir de quand augmenter la distance devient inintéressant.
 - déterminer à partir de quand une distance devient suffisante pour espérer un résultat.
 
+Le protocole d'évaluation est alors simple:
+- il faut considérer l'économie en temps/accès.
+- il faut considérer la perte en précision.
+- l'évaluation est fonction des seuils de probabilités minimales et maximales.
+On peut proposer: score(s_min, s_max) = (time_gmm / time_ref) * (1 + tolerance * nb_miss)
+
  6.     Comment comptez vous améliorer les performances de votre programme ?
 
 Plusieurs pistes à explorer:
