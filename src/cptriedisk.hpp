@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include "dist.hpp"
 
 /**
  * \file cptrie.hpp
@@ -34,8 +35,8 @@ class CPTrieDisk
             unsigned pf;
             unsigned fd;
             long freq;
-            char* start;
             unsigned char size;
+            char* start;
         } __attribute__((packed));
 
         /**
@@ -44,7 +45,7 @@ class CPTrieDisk
          */
         struct Result
         {
-            Result() : word(NULL), freq(0), distance(0) {}
+            Result() : word(NULL), freq(0), distance(0), size(0) {}
             Result(char *w, long f, unsigned d, unsigned char len) : word(w), freq(f), distance(d), size(len) {}
             char *word;
             long freq;
@@ -77,6 +78,8 @@ class CPTrieDisk
         std::map<unsigned, Result> distance_map(char* word, unsigned char size, unsigned max_distance);
         void distance_rec(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous);
         void distance_rec_map(char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous);
+        void distance_other(char* word, unsigned char size, std::vector<Result>& res, unsigned distance);
+        void distance_rec_other(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned cum);
 
     private:
         std::vector<Node> nodes;

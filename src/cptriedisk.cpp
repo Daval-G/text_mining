@@ -207,8 +207,8 @@ void CPTrieDisk::write(std::ostream& os)
     for (auto i = 0; i < size; ++i)
     {
         os.write((char*)&nodes[i], 2 * sizeof(unsigned) + sizeof(long));
-        os.write((char*)&nodes[i].size, 1);
-        os.write((char*)&nodes[i].start, nodes[i].size);
+        os.write((char*)&nodes[i].size, sizeof(unsigned char));
+        os.write(nodes[i].start, nodes[i].size * sizeof(char));
     }
 }
 
@@ -226,7 +226,8 @@ void CPTrieDisk::read(std::istream& is)
     for (auto i = 0; i < size; ++i)
     {
         is.read((char*)&nodes[i], 2 * sizeof(unsigned) + sizeof(long));
-        is.read((char*)&nodes[i].size, 1);
-        is.read((char*)&nodes[i].start, nodes[i].size);
+        is.read((char*)&nodes[i].size, sizeof(unsigned char));
+        nodes[i].start = new char[nodes[i].size];
+        is.read(nodes[i].start, nodes[i].size * sizeof(char));
     }
 }
