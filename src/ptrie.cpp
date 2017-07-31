@@ -1,5 +1,15 @@
 #include "ptrie.hpp"
 
+/**
+ * \file ptrie.cpp
+ * \brief Implémente les méthodes principales du PTrie.
+ * \author daval-_g moreau_2
+ */
+
+/**
+ * \fn int PTrie::nb_nodes()
+ * \brief Donne le nombre de noeuds.
+ */
 int PTrie::nb_nodes()
 {
     int res = 1;
@@ -8,6 +18,13 @@ int PTrie::nb_nodes()
     return res;
 }
 
+/**
+ * \fn void PTrie::get_words(std::vector<std::string>& res, std::string current) const
+ * \brief Récupère les mots des feuilles.
+ *
+ * \param res Ensemble des résultats.
+ * \param current Radical couramment utilisé.
+ */
 void PTrie::get_words(std::vector<std::string>& res, std::string current) const
 {
     current += root;
@@ -17,6 +34,15 @@ void PTrie::get_words(std::vector<std::string>& res, std::string current) const
         c->get_words(res, current);
 }
 
+
+/**
+ * \fn bool PTrie::remove(std::string& word, int j)
+ * \brief Retire les feuilles à partir d'un radical.
+ *
+ * \param word Radical utilisé.
+ * \param j Index d'avancement sur la string.
+ * \return Des éléments ont été retirés.
+ */
 bool PTrie::remove(std::string& word, int j)
 {
     for (auto &c : childs)
@@ -42,6 +68,14 @@ void PTrie::distance(std::string& word)
     //TODO
 }
 
+/**
+ * \fn void PTrie::add(std::string& word, long freq, int j)
+ * \brief Ajoute un mot à l'arbre.
+ *
+ * \param word Mot à ajouter.
+ * \param freq Fréquence du mot.
+ * \param j Indice d'avancement sur la string.
+ */
 void PTrie::add(std::string& word, long freq, int j)
 {
     for (auto &c: childs)

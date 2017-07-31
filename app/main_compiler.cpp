@@ -4,6 +4,15 @@
 #include <fstream>
 
 /**
+ * \file main_compiler.cpp
+ * \brief Pour créer la structure.
+ * \author daval-_g moreau_2
+ *
+ * Programme pour générer la structure sur disque à partir du dictionnaire.
+ *
+ */
+
+/**
  * \fn void error_compiler(char *argv[])
  * \brief Gestion des erreurs.
  *

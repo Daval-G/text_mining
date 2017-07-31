@@ -4,6 +4,15 @@
 #include <string>
 #include <iostream>
 
+/**
+ * \file cptrie.hpp
+ * \brief Structure de CPTrie.
+ * \author daval-_g moreau_2
+ *
+ * Déclare la structure CPTrie et ses composants principaux.
+ *
+ */
+
 class CPTrie
 {
     public:

@@ -1,6 +1,19 @@
 #include "cptrie.hpp"
 
+/**
+ * \file cptrie.cpp
+ * \brief Implémente les méthodes principales du CPTrie.
+ * \author daval-_g moreau_2
+ */
 
+/**
+ * \fn void CPTrie::add(std::string& word, long freq, int j)
+ * \brief Ajoute un mot à l'arbre.
+ *
+ * \param word Mot à ajouter.
+ * \param freq Fréquence du mot.
+ * \param j Indice d'avancement sur la string.
+ */
 void CPTrie::add(std::string& word, long freq, int j)
 {
     if (!nodes[0].pf)
@@ -67,6 +80,15 @@ void CPTrie::add(std::string& word, long freq, int j)
     nodes.push_back(Node(word.substr(j, word.size() - j), freq));
 }
 
+/**
+ * \fn std::ostream& print(std::ostream& stream, const CPTrie& trie, int index)
+ * \brief Affichage de l'arbre.
+ *
+ * \param stream Stream dans lequel afficher l'arbre.
+ * \param trie Arbre à écrire.
+ * \param Index à partir duquel afficher l'arbre.
+ * \return La valeur du digit.
+ */
 std::ostream& print(std::ostream& stream, const CPTrie& trie, int index)
 {
     stream << trie.nodes[index].edge << ":" << trie.nodes[index].freq;
@@ -83,11 +105,26 @@ std::ostream& print(std::ostream& stream, const CPTrie& trie, int index)
     return stream;
 }
 
+/**
+ * \fn std::ostream& operator <<(std::ostream& stream, const CPTrie& trie)
+ * \brief Opérateur de stream.
+ *
+ * \param stream Stream dans lequel afficher l'arbre.
+ * \param trie Arbre à écrire.
+ * \return Le stream utilisé après écriture.
+ *
+ */
 std::ostream& operator <<(std::ostream& stream, const CPTrie& trie)
 {
     return print(stream, trie, 0);
 }
 
+/**
+ * \fn void CPTrie::write(std::ostream& os)
+ * \brief Enregistre les données sur disque.
+ *
+ * \param os Output stream dans lequel écrire la structure.
+ */
 void CPTrie::write(std::ostream& os)
 {
     typename std::vector<Node>::size_type size = nodes.size();
@@ -95,6 +132,12 @@ void CPTrie::write(std::ostream& os)
     os.write((char*)&nodes[0], nodes.size() * sizeof(Node));
 }
 
+/**
+ * \fn void CPTrie::read(std::istream& is)
+ * \brief Récupère les données sur disque.
+ *
+ * \param is Input stream depuis lequel lire la structure.
+ */
 void CPTrie::read(std::istream& is)
 {
     typename std::vector<Node>::size_type size = 0;

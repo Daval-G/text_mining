@@ -7,6 +7,15 @@
 #include <iostream>
 #include <algorithm>
 
+/**
+ * \file ptrie.hpp
+ * \brief Structure de PTrie.
+ * \author daval-_g moreau_2
+ *
+ * Déclare la structure PTrie et ses composants principaux.
+ *
+ */
+
 class PTrie
 {
     public:

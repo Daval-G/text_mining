@@ -10,6 +10,23 @@
 #include <mach/task.h>
 #endif /* __APPLE__ */
 
+/**
+ * \file main.cpp
+ * \brief Programme de tests.
+ * \author daval-_g moreau_2
+ *
+ * Programme pour effectuer les tests de construction basiques.
+ *
+ */
+
+/**
+ * \fn int parseLine(char* line)
+ * \brief Permet de lire une ligne.
+ *
+ * \param line Buffer dans lequel la ligne est écrite.
+ * \return La valeur du digit.
+ *
+ */
 int parseLine(char* line)
 {
     // This assumes that a digit will be found and the line ends in " Kb".
@@ -21,6 +38,10 @@ int parseLine(char* line)
     return i;
 }
 
+/**
+ * \fn void getValue()
+ * \brief Affiche la consommation RAM.
+ */
 void getValue()
 {
     #ifdef __APPLE__
@@ -53,9 +74,16 @@ void getValue()
     #endif
 }
 
+/**
+ * \fn int main(int argc, char *argv[])
+ * \brief Effectue les tests.
+ *
+ * \param argc Nombre d'arguments en entrée de l'executable.
+ * \param argv Liste des arguments passés par l'utilisateur.
+ */
 int main(int argc, char *argv[])
 {
-    // Ptrie test
+    // STRUCTURE TEST
     std::vector<std::string> v;
     v.push_back("haha");
     v.push_back("hahi");
