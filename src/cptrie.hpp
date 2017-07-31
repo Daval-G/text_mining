@@ -18,7 +18,14 @@ class CPTrie
             size_t fd;
             long freq;
         };
-    
+        struct Result
+         {
+            Result() : word(NULL), freq(0), distance(0) {}
+            Result(char *w, long f, size_t d) : word(w), freq(f), distance(d) {}
+            char *word;
+            long freq;
+            size_t distance;
+         }
     public:
         CPTrie() { nodes.push_back(Node()); }
         CPTrie(std::vector<std::string>& words, std::vector<long> freqs)

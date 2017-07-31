@@ -1,10 +1,20 @@
 #include <ptrie.hpp>
 #include <cstdlib>
+#include <cstring>
 
 void error_app(char *argv[])
 {
     std::cerr << "Usage: " << argv[0] << " /path/to/compiled/dict.bin" << std::endl;
     exit(EXIT_FAILURE);
+}
+
+bool compare(Result r1, Result r2)
+{
+    if (r1->distance != r2->distance)
+        return r1->distance < r2->distance;
+    if (r1->frequence != r2->frequence)
+        return r1->frequence > r2->frequence;
+    return strcmp(r1->word, r2->word) > 0;
 }
 
 int main(int argc, char *argv[])
