@@ -139,6 +139,37 @@ int main(int argc, char *argv[])
     writer.close();
     printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
+    char wor[7] = {'b','o','n','j','o','u','r'};
+    std::cout << "Distance 0 tests : " << std::endl;
+    tStart = clock();
+    for (int i = 0; i < 3000; ++i)
+        std::map<unsigned, CPTrieDisk::Result> my_map = dict.distance_map(wor, 7, 0);
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+    std::cout << "Distance 1 tests : " << std::endl;
+    tStart = clock();
+    for (int i = 0; i < 300; ++i)
+        std::map<unsigned, CPTrieDisk::Result> my_map = dict.distance_map(wor, 7, 1);
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+    std::cout << "Distance 2 tests : " << std::endl;
+    tStart = clock();
+    for (int i = 0; i < 30; ++i)
+        std::map<unsigned, CPTrieDisk::Result> my_vector = dict.distance_map(wor, 7, 2);
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+    std::cout << "Distance 3 tests : " << std::endl;
+    tStart = clock();
+    for (int i = 0; i < 10; ++i)
+        std::map<unsigned, CPTrieDisk::Result> my_vector = dict.distance_map(wor, 7, 3);
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+    std::cout << "Distance 4 tests : " << std::endl;
+    tStart = clock();
+    std::map<unsigned, CPTrieDisk::Result> my_vector = dict.distance_map(wor, 7, 4);
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+
     // READING TEST
     std::cout << "Lecture de la structure depuis le disque:" << std::endl;
     tStart = clock();
