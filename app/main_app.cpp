@@ -32,10 +32,34 @@ void error_app(char *argv[])
 }
 
 /**
+ * \fn bool strcmp_compare(Result r1, Result r2)
+ * \brief Compare les chaines sans \0.
+ *
+ * \param r1 Première chaine à comparer.
+ * \param r2 Seconde chaine à comparer.
+ * \return Retourne la valeur w1 < w2.
+ */
+bool strcmp_ranged(const char *w1, const char *w2, unsigned s1, unsigned s2)
+{
+    while(s1 && s2 && (*w1 == *w2))
+    {
+        w1++;
+        w2++;
+        s1--;
+        s2--;
+    }
+
+    if (s1 == 0 || s2 == 0)
+        return ! (s2 == 0);
+    return (*(const unsigned char*) w1 - *(const unsigned char*) w2) > 0;
+}
+
+/**
  * \fn bool compare(Result r1, Result r2)
  * \brief Compare les résultats.
  *
- * \param sz Chaîne à stocker dans l'objet Str_t, ne peut être NULL.
+ * \param r1 Premier résultat à comparer.
+ * \param r2 Second résultat à comparer.
  * \return Retourne la valeur r1 < r2.
  *
  * Sert à établir une relation d'ordre entre les résultats pour les trier.
@@ -48,7 +72,7 @@ bool compare(std::pair<unsigned, CPTrieDisk::Result> r1,
         return r1.second.distance < r2.second.distance;
     if (r1.second.freq != r2.second.freq)
         return r1.second.freq > r2.second.freq;
-    return strcmp(r1.second.word, r2.second.word) > 0;
+    return strcmp_ranged(r1.second.word, r2.second.word, r1.second.size, r2.second.size);
 }
 
 /**
