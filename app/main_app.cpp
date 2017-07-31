@@ -1,4 +1,6 @@
 #include <cptriedisk.hpp>
+
+#include <algorithm>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
@@ -39,13 +41,14 @@ void error_app(char *argv[])
  * Sert à établir une relation d'ordre entre les résultats pour les trier.
  *
  */
-bool compare(Result r1, Result r2)
+bool compare(std::pair<unsigned, CPTrieDisk::Result> r1,
+             std::pair<unsigned, CPTrieDisk::Result> r2)
 {
-    if (r1.distance != r2.distance)
-        return r1.distance < r2.distance;
-    if (r1.frequence != r2.frequence)
-        return r1.frequence > r2.frequence;
-    return strcmp(r1.word, r2.word) > 0;
+    if (r1.second.distance != r2.second.distance)
+        return r1.second.distance < r2.second.distance;
+    if (r1.second.freq != r2.second.freq)
+        return r1.second.freq > r2.second.freq;
+    return strcmp(r1.second.word, r2.second.word) > 0;
 }
 
 /**
@@ -84,13 +87,15 @@ int main(int argc, char *argv[])
 
         std::map<unsigned, CPTrieDisk::Result> map = dict.distance_map(word, strlen(word), distance);
 
-        std::cout << "OUT" << std::endl;
-        std::flush(std::cout);
+        std::cerr << "NO ERR" << std::endl;
+        std::flush(std::cerr);
         
         results = std::vector<std::pair<unsigned, CPTrieDisk::Result>>(map.begin(), map.end());
 
-        std::cout << "OUT" << std::endl;
-        std::flush(std::cout);
+        std::cerr << "NO ERR" << std::endl;
+        std::flush(std::cerr);
+
+        std::sort(results.begin(), results.end(), compare);
 
         std::cout << "[";
         for (auto result: results)
