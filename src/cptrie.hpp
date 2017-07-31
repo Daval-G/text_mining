@@ -13,9 +13,17 @@
  *
  */
 
+/**
+ * \class CPTrie
+ * \brief Classe contenant tous les noeuds.
+ */
 class CPTrie
 {
     public:
+        /**
+         * \struct Node
+         * \brief Noeud de l'arbre.
+         */
         struct Node
         {
             Node() : pf(0), fd(0), freq(0) {}
@@ -28,7 +36,14 @@ class CPTrie
             long freq;
         };
     public:
+        /**
+         * \brief Constructeur utilisé pour lire le dictionnaire.
+         */
         CPTrie() { nodes.push_back(Node()); }
+
+        /**
+         * \brief Constructeur à partir du fichier mot/frequence.
+         */
         CPTrie(std::vector<std::string>& words, std::vector<long>& freqs)
         {
             nodes.reserve(words.size() * 2);

@@ -47,4 +47,3 @@ struct Result
     long frequence;
     size_t distance;
 };
-

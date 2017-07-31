@@ -16,15 +16,28 @@
  *
  */
 
+/**
+ * \class PTrie
+ * \brief Noeud composant l'arbre.
+ */
 class PTrie
 {
     public:
+        /**
+         * \brief Constructeur pour la lecture du dictionnaire.
+         */
         PTrie() : freq(0) {};
+        /**
+         * \brief Constructeur récursif d'un noeud.
+         */
         PTrie(std::string root, long freq)
         {
             this->root = root;
             this->freq = freq;
         };
+        /**
+         * \brief Constructeur de l'arbre à partir du fichier mot/fréquence.
+         */
         PTrie(std::vector<std::string> words, std::vector<long> freqs) : freq(0)
         {
             for (unsigned i = 0; i < words.size(); i++)
