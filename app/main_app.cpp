@@ -92,10 +92,14 @@ int main(int argc, char *argv[])
         std::cout << "OUT" << std::endl;
         std::flush(std::cout);
 
+        std::cout << "[";
         for (auto result: results)
         {
-            std::cout << result.second.word << std::endl;
+            printf("{\"word\":%.*s,\"freq\":%ld,\"distance\":%u}", result.second.size, result.second.word, result.second.freq, result.second.distance);
+            if (&result != &results.back())
+                std::cout << ",";
         }
+        std::cout << "]" << std::endl;
 
         results.clear();
     }
