@@ -1,2 +1,4 @@
-add_executable(OurTextMiningApp main_compiler.cpp)
-target_link_libraries(OurTextMiningApp tree)
+add_executable(TextMiningCompiler main_compiler.cpp)
+target_link_libraries(TextMiningCompiler tree)
+add_executable(TextMiningApp main_app.cpp)
+target_link_libraries(TextMiningApp tree)

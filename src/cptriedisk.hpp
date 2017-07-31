@@ -38,3 +38,13 @@ class CPTrieDisk
     private:
         std::vector<Node> nodes;
 };
+
+struct Result
+{
+    Result() : word(NULL), frequence(0), distance(0) {}
+    Result(char *w, long f, size_t d) : word(w), frequence(f), distance(d) {}
+    char *word;
+    long frequence;
+    size_t distance;
+};
+

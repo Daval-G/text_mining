@@ -1,6 +1,4 @@
 #include <cptriedisk.hpp>
-#include <cptrie.hpp>
-#include <ptrie.hpp>
 
 #include "stdlib.h"
 #include "stdio.h"
@@ -51,7 +49,7 @@ void getValue()
         }
     }
     fclose(file);
-    std::cout << result << "Kb" << std::endl;
+    std::cout << "Memory:\t" << result << "KB" << std::endl;
     #endif
 }
 
@@ -77,18 +75,19 @@ int main(int argc, char *argv[])
     u.push_back(697);
 
     CPTrieDisk trie(v, u);
-    std::cout << "size: " << sizeof(CPTrieDisk::Node) << std::endl;
+    std::cout << "Structure size:\t" << sizeof(CPTrieDisk::Node) << std::endl;
 
     v.clear();
     u.clear();
 
-    // Read test
     if (argc == 1) return 0;
 
     std::ifstream file;
     file.open(argv[1]);
     if (! file.is_open()) return 1;
 
+    // GENERATION TEST
+    std::cout << "Génération de la structure:" << std::endl;
     clock_t tStart = clock();
     std::string word;
     long freq;
@@ -99,25 +98,29 @@ int main(int argc, char *argv[])
         u.push_back(freq);
     }
     CPTrieDisk dict(v, u);
-    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
-    std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
+    printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+    std::cout << "Nodes:\t" << dict.nb_nodes() << std::endl;
     getValue();
 
+    // WRITING TEST
+    std::cout << "Ecriture de la structure sur le disque:" << std::endl;
     tStart = clock();
     std::ofstream writer;
     writer.open("dict.bin", std::ios::out | std::ios::binary);
     dict.write(writer);
     writer.close();
-    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+    printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
+    // READING TEST
+    std::cout << "Lecture de la structure depuis le disque:" << std::endl;
     tStart = clock();
     std::ifstream reader;
     reader.open("dict.bin", std::ios::in | std::ios::binary);
     dict = CPTrieDisk();
     dict.read(reader);
     reader.close();
-    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
-    std::cout << "Nb nodes: " << dict.nb_nodes() << std::endl;
+    printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+    std::cout << "Nodes:\t" << dict.nb_nodes() << std::endl;
     
     return 0;
 }

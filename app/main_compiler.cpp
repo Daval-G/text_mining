@@ -1,4 +1,4 @@
-#include <cptrie.hpp>
+#include <cptriedisk.hpp>
 #include <cstring>
 #include <cstdlib>
 #include <fstream>
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         w.push_back(word);
         u.push_back(freq);
     }
-    CPTrie dict(w, u);
+    CPTrieDisk dict(w, u);
 
     std::fstream binary;
     binary.open(argv[2], std::ios::out | std::ios::binary);
@@ -39,4 +39,5 @@ int main(int argc, char *argv[])
 
     dict.write(binary);
     binary.close();
+    std::cout << "Size structure: 4" << std::endl;
 }
