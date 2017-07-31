@@ -5,9 +5,26 @@
 #include <string>
 #include <iostream>
 
+/**
+ * \file cptrie.hpp
+ * \brief Structure de CPTrieDisk.
+ * \author daval-_g moreau_2
+ *
+ * Déclare la structure CPTrieDisk et ses composants principaux.
+ *
+ */
+
+/**
+ * \class CPTrieDisk
+ * \brief Classe contenant tous les noeuds.
+ */
 class CPTrieDisk
 {
     public:
+        /**
+         * \struct Node
+         * \brief Noeud de l'arbre.
+         */
         struct Node
         {
             Node() : start(NULL), pf(0), fd(0), freq(0), size(0) {}
@@ -21,6 +38,10 @@ class CPTrieDisk
             unsigned char size;
         } __attribute__((packed));
 
+        /**
+         * \struct Result
+         * \brief Résultat type des calculs.
+         */
         struct Result
         {
             Result() : word(NULL), freq(0), distance(0) {}
@@ -32,7 +53,14 @@ class CPTrieDisk
         } __attribute__((packed));
     
     public:
+        /**
+         * \brief Constructeur utilisé pour lire le dictionnaire.
+         */
         CPTrieDisk() { nodes.push_back(Node()); }
+
+        /**
+         * \brief Constructeur à partir du fichier mot/frequence.
+         */
         CPTrieDisk(std::vector<std::string>& words, std::vector<long>& freqs)
         {
             nodes.reserve(words.size() * 2);

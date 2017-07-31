@@ -1,5 +1,20 @@
 #include "cptriedisk.hpp"
 
+/**
+ * \file cptriedisk.cpp
+ * \brief Implémente les méthodes principales du CPTrieDisk.
+ * \author daval-_g moreau_2
+ */
+
+/**
+ * \fn std::map<unsigned, CPTrieDisk::Result> CPTrieDisk::distance_map(char* word, unsigned char size, unsigned max_distance)
+ * \brief Calcule les mots à une certaine distance.
+ *
+ * \param word Mot de référence.
+ * \param size Taille du mot.
+ * \param max_distance Distance maximale autorisée.
+ * \return Une map de tous les résultats.
+ */
 std::map<unsigned, CPTrieDisk::Result> CPTrieDisk::distance_map(char* word, unsigned char size, unsigned max_distance)
 {
     std::map<unsigned, Result> res;
@@ -7,6 +22,10 @@ std::map<unsigned, CPTrieDisk::Result> CPTrieDisk::distance_map(char* word, unsi
     return res;
 }
 
+/**
+ * \fn void CPTrieDisk::distance_rec_map(char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
+ * \brief Traite récursivement les distances.
+ */
 void CPTrieDisk::distance_rec_map(char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
 {
     if (!distance)
@@ -48,6 +67,10 @@ void CPTrieDisk::distance_rec_map(char* word, unsigned char size, std::map<unsig
     }
 }
 
+/**
+ * \fn std::vector<CPTrieDisk::Result> CPTrieDisk::distance(char* word, unsigned char size, unsigned max_distance)
+ * \brief Voir distance_map, mais non fonctionnelle avec un vecteur.
+ */
 std::vector<CPTrieDisk::Result> CPTrieDisk::distance(char* word, unsigned char size, unsigned max_distance)
 {
     std::vector<Result> res;
@@ -55,6 +78,10 @@ std::vector<CPTrieDisk::Result> CPTrieDisk::distance(char* word, unsigned char s
     return res;
 }
 
+/**
+ * \fn void CPTrieDisk::distance_rec(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
+ * \brief Voir distance_rec_map, mais non fonctionnelle avec un vecteur.
+ */
 void CPTrieDisk::distance_rec(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
 {
     if (!distance)
@@ -93,6 +120,14 @@ void CPTrieDisk::distance_rec(char* word, unsigned char size, std::vector<Result
     }
 }
 
+/**
+ * \fn void CPTrieDisk::add(std::string& word, long freq, int j)
+ * \brief Ajoute un mot à l'arbre.
+ *
+ * \param word Mot à ajouter.
+ * \param freq Fréquence du mot.
+ * \param j Indice d'avancement sur la string.
+ */
 void CPTrieDisk::add(std::string& word, long freq, unsigned char j)
 {
     if (!nodes[0].pf)
@@ -159,6 +194,12 @@ void CPTrieDisk::add(std::string& word, long freq, unsigned char j)
     nodes.push_back(Node(&word[j], word.size() - j, freq));
 }
 
+/**
+ * \fn void CPTrieDisk::write(std::ostream& os)
+ * \brief Enregistre les données sur disque.
+ *
+ * \param os Output stream dans lequel écrire la structure.
+ */
 void CPTrieDisk::write(std::ostream& os)
 {
     typename std::vector<Node>::size_type size = nodes.size();
@@ -171,6 +212,12 @@ void CPTrieDisk::write(std::ostream& os)
     }
 }
 
+/**
+ * \fn void CPTrieDisk::read(std::istream& is)
+ * \brief Récupère les données sur disque.
+ *
+ * \param is Input stream depuis lequel lire la structure.
+ */
 void CPTrieDisk::read(std::istream& is)
 {
     typename std::vector<Node>::size_type size = 0;

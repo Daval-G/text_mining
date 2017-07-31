@@ -88,6 +88,7 @@ On peut proposer: score(s_min, s_max) = (time_gmm / time_ref) * (1 + tolerance *
  6.     Comment comptez vous améliorer les performances de votre programme ?
 
 Plusieurs pistes à explorer:
+- refaire la distance de Damerau-Levenshtein: il y a très clairement un problème avec son implementation, tant en terme de code qu'en complexité algorithmique.
 - ordonner les noeuds: actuellement, les noeuds sont organisés de façon relativement arbitraire selon les entrées du dictionnaire. On pourrait les trier de façon à optimiser des parcours en BFS, en DFS, ou tout autre organisation logique, et observer l'effet sur les performances.
 - mmap: la structure est chargée immédiatement en mémoire au lancement de l'executable. On pourrait se contenter d'accéder aux pages mémoires nécessaires en jouant sur des offsets.
 - supprimer les répétitions: les différentes chaines de caractères stockées dans les noeuds se répètent énormément. On pourrait stocker ces chaines dans un tableau, et garder des offsets dans les noeuds, et ainsi économiser beaucoup de mémoire, contre toutefois un peu plus de temps à la création de la structure. Cela permettrait également de ne plus enregistrer/lire sur disque noeud par noeud, puisque toutes les tailles sont connues facilement.
