@@ -1,14 +1,18 @@
 #include <cptrie.hpp>
 #include <cstring>
+#include <cstdlib>
 #include <fstream>
+
+void error_compiler(char *argv[])
+{
+    std::cerr << "Usage: " << argv[0] << " /path/to/word/freq.txt /path/to/output/dict.bin" << std::endl;
+    exit(EXIT_FAILURE);
+}
 
 int main(int argc, char *argv[])
 {
     if (argc != 3 || strcmp(argv[1], "-h"))
-    {
-        std::cerr << "Usage: " << argv[0] << " /path/to/word/freq.txt /path/to/output/dict.bin" << std::endl;
-        return 1;
-    }
+        error_compiler(argv);
 
     std::vector<std::string> w;
     std::vector<long> u;
@@ -16,10 +20,7 @@ int main(int argc, char *argv[])
     std::ifstream file;
     file.open(argv[1]);
     if (! file.is_open())
-    {
-        std::cerr << "Error: " << argv[1] << " does not exist." << std::endl;
-        return 1;
-    }
+        error_compiler(argv);
 
     std::string word;
     long freq;
@@ -34,10 +35,7 @@ int main(int argc, char *argv[])
     std::fstream binary;
     binary.open(argv[2], std::ios::out | std::ios::binary);
     if (! binary.is_open())
-    {
-        std::cerr << "Error: can not create " << argv[2] << " file." << std::endl;
-        return 1;
-    }
+        error_compiler(argv);
 
     dict.write(binary);
     binary.close();
