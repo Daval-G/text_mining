@@ -56,6 +56,7 @@ Les données sont sauvegardées sur disque en binaire au format suivant, avec en
 Tests automatiques (comparaison avec la ref):
 - Mot dans le dictionnaire initial à distance 0
 - Mot absent du dictionnaire initial à distance 0
+- Test d'intégrité de la structure sur quelques mots
 - Temps de compilation
 - Temps de requêtes
 - Tests aléatoires (avec seed) sur des milliers de mots présents dans le dictionnaire de distance 0 à 2
