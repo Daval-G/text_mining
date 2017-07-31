@@ -17,4 +17,8 @@ include_directories(
 # Adds source directory
 add_subdirectory(src)
 add_subdirectory(tests)
-add_subdirectory(app)
+
+add_executable(TextMiningCompiler app/main_compiler.cpp)
+target_link_libraries(TextMiningCompiler tree)
+add_executable(TextMiningApp app/main_app.cpp)
+target_link_libraries(TextMiningApp tree)

@@ -40,7 +40,7 @@ void error_compiler(char *argv[])
  */
 int main(int argc, char *argv[])
 {
-    if (argc != 3 || strcmp(argv[1], "-h"))
+    if (argc != 3 || ! strcmp(argv[1], "-h"))
         error_compiler(argv);
 
     std::vector<std::string> w;
