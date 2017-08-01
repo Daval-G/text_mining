@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <cstring>
 
 /**
  * \file cptrie.hpp
