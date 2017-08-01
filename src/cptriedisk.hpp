@@ -4,7 +4,6 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include "dist.hpp"
 
 /**
  * \file cptrie.hpp

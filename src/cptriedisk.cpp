@@ -204,9 +204,11 @@ void CPTrieDisk::write(std::ostream& os)
 {
     typename std::vector<Node>::size_type size = nodes.size();
     os.write((char*)&size, sizeof(size));
-    for (auto i = 0; i < size; ++i)
+    for (std::vector<Node>::size_type i = 0; i < size; ++i)
     {
-        os.write((char*)&nodes[i], 2 * sizeof(unsigned) + sizeof(long));
+        os.write((char*)&nodes[i].pf, sizeof(unsigned));
+        os.write((char*)&nodes[i].fd, sizeof(unsigned));
+        os.write((char*)&nodes[i].freq, sizeof(long));
         os.write((char*)&nodes[i].size, sizeof(unsigned char));
         os.write(nodes[i].start, nodes[i].size * sizeof(char));
     }
@@ -223,11 +225,14 @@ void CPTrieDisk::read(std::istream& is)
     typename std::vector<Node>::size_type size = 0;
     is.read((char*)&size, sizeof(size));
     nodes.resize(size);
-    for (auto i = 0; i < size; ++i)
+    for (std::vector<Node>::size_type i = 0; i < size; ++i)
     {
-        is.read((char*)&nodes[i], 2 * sizeof(unsigned) + sizeof(long));
-        is.read((char*)&nodes[i].size, sizeof(unsigned char));
+        is.read((char*) &nodes[i].pf, sizeof(unsigned));
+        is.read((char*) &nodes[i].fd, sizeof(unsigned));
+        is.read((char*) &nodes[i].freq, sizeof(long));
+        is.read((char*) &nodes[i].size, sizeof(unsigned char));
         nodes[i].start = new char[nodes[i].size];
         is.read(nodes[i].start, nodes[i].size * sizeof(char));
     }
+    nodes[0].start = NULL;
 }
