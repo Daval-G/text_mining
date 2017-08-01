@@ -45,7 +45,7 @@ void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, ch
         {
             if (word[j] == previous_letter && word_previous == nodes[index].start[i])
                 distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
-            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
+            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, previous_letter, word[j]);
         }
         // Insertion
         distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i], word_previous);
