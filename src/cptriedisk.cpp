@@ -18,34 +18,34 @@
 void CPTrieDisk::distance_map(std::map<unsigned, Result>& res, char* word, unsigned char size, unsigned max_distance)
 {
     char* current_word = new char[256];
-    distance_rec_map(current_word, 0, word, size, res, max_distance + 1, 0, 0, 0, max_distance + 1, 0, 0);
+    distance_rec_map(current_word, 0, word, size, res, max_distance + 1, 0, 0, 0, max_distance + 1, 0);
 }
 
 /**
- * \fn void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
+ * \fn void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter)
  * \brief Traite récursivement les distances.
  */
-void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
+void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter)
 {
     if (!distance)
         return;
     // Deletion
     if (j < size)
-        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter, word[j]);
+        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter);
     if (i < nodes[index].size)
     {
         if (j < size)
         {
             // Replace
-            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
+            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i]);
             if (word[j] == nodes[index].start[i])
-                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
+                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i]);
             // Swap
-            if (word[j] == previous_letter && word_previous == nodes[index].start[i])
-                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
+            if (word[j] == previous_letter && j > 0 && word[j - 1] == nodes[index].start[i])
+                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i]);
         }
         // Insertion
-        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i], word_previous);
+        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i]);
     }
     else
     {
@@ -64,60 +64,7 @@ void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, ch
         while (nodes[new_index].start)
         {
             memcpy(current_word + cum_size, nodes[new_index].start, nodes[new_index].size);
-            distance_rec_map(current_word, cum_size + nodes[new_index].size, word, size, res, distance, new_index, 0, j, max_distance, previous_letter, word_previous);
-            new_index = nodes[new_index].fd;
-        }
-    }
-}
-
-/**
- * \fn std::vector<CPTrieDisk::Result> CPTrieDisk::distance(char* word, unsigned char size, unsigned max_distance)
- * \brief Voir distance_map, mais non fonctionnelle avec un vecteur.
- */
-std::vector<CPTrieDisk::Result> CPTrieDisk::distance(char* word, unsigned char size, unsigned max_distance)
-{
-    std::vector<Result> res;
-    distance_rec(word, size, res, max_distance + 1, 0, 0, 0, max_distance + 1, 0, 0);
-    return res;
-}
-
-/**
- * \fn void CPTrieDisk::distance_rec(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
- * \brief Voir distance_rec_map, mais non fonctionnelle avec un vecteur.
- */
-void CPTrieDisk::distance_rec(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
-{
-    if (!distance)
-        return;
-    if (i < nodes[index].size)
-    {
-        if (j < size && word[j] == nodes[index].start[i])
-            distance_rec(word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
-        if (j < size)
-        {
-            // Deletion
-            distance_rec(word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter, word[j]);
-            // Replace
-            distance_rec(word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
-        }
-        // Swap
-        if (previous_letter && word_previous)
-        {
-            if (word[j] == previous_letter && word_previous == nodes[index].start[i])
-                distance_rec(word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
-            distance_rec(word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
-        }
-        // Insertion
-        distance_rec(word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i], word_previous);
-    }
-    else
-    {
-        if (nodes[index].freq && j == size)
-            res.push_back(Result(nodes[index].start, nodes[index].freq, max_distance - distance, nodes[index].size));
-        unsigned new_index = nodes[index].pf;
-        while (nodes[new_index].start)
-        {
-            distance_rec(word, size, res, distance, new_index, 0, j, max_distance, previous_letter, word_previous);
+            distance_rec_map(current_word, cum_size + nodes[new_index].size, word, size, res, distance, new_index, 0, j, max_distance, previous_letter);
             new_index = nodes[new_index].fd;
         }
     }
