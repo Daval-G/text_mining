@@ -52,7 +52,7 @@ class CPTrieDisk
             unsigned distance;
             unsigned char size;
         } __attribute__((packed));
-    
+
     public:
         /**
          * \brief Constructeur utilisé pour lire le dictionnaire.
@@ -75,7 +75,7 @@ class CPTrieDisk
         void write(std::ostream& os);
         void read(std::istream& is);
         void distance_map(std::map<unsigned, Result>& res, char* word, unsigned char size, unsigned max_distance);
-        void distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter);
+        void distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous);
 
     private:
         std::vector<Node> nodes;

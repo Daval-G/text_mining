@@ -18,34 +18,34 @@
 void CPTrieDisk::distance_map(std::map<unsigned, Result>& res, char* word, unsigned char size, unsigned max_distance)
 {
     char* current_word = new char[256];
-    distance_rec_map(current_word, 0, word, size, res, max_distance + 1, 0, 0, 0, max_distance + 1, 0);
+    distance_rec_map(current_word, 0, word, size, res, max_distance + 1, 0, 0, 0, max_distance + 1, 0, 0);
 }
 
 /**
- * \fn void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter)
+ * \fn void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
  * \brief Traite récursivement les distances.
  */
-void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter)
+void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
 {
     if (!distance)
         return;
     // Deletion
     if (j < size)
-        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter);
+        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter, word[j]);
     if (i < nodes[index].size)
     {
         if (j < size)
         {
             // Replace
-            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i]);
+            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
             if (word[j] == nodes[index].start[i])
-                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i]);
+                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
             // Swap
-            if (word[j] == previous_letter && j > 0 && word[j - 1] == nodes[index].start[i])
-                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i]);
+            if (word[j] == previous_letter && word_previous == nodes[index].start[i])
+                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
         }
         // Insertion
-        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i]);
+        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i], nodes[index].start[i]);
     }
     else
     {
@@ -64,7 +64,7 @@ void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, ch
         while (nodes[new_index].start)
         {
             memcpy(current_word + cum_size, nodes[new_index].start, nodes[new_index].size);
-            distance_rec_map(current_word, cum_size + nodes[new_index].size, word, size, res, distance, new_index, 0, j, max_distance, previous_letter);
+            distance_rec_map(current_word, cum_size + nodes[new_index].size, word, size, res, distance, new_index, 0, j, max_distance, previous_letter, word_previous);
             new_index = nodes[new_index].fd;
         }
     }
