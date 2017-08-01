@@ -24,7 +24,7 @@ def check_word(dist, word):
                                                               stdout=PIPE,     \
                                                               stderr=DEVNULL)
     p3 = Popen(["echo", "approx %d %s"%(i, word)], stdout=PIPE)
-    p4 = Popen(["./TextMiningApp", "./dict.bin"], stdin=p3.stdout, \
+    p4 = Popen(["./build/TextMiningApp", "./build/dict.bin"], stdin=p3.stdout, \
                                                   stdout=PIPE,     \
                                                   stderr=DEVNULL)
 
@@ -49,13 +49,13 @@ with open("./words.txt", "r") as file:
             continue
 
         word = line.split()[0]
-        for i in range(3):
+        for i in range(2):
             if (not check_word(i, word)):
                 fails += 1
                 if (fails > maxim):
                     continue
                 print(bcolors.WARNING + "echo approx %d %s"%(i, word) + bcolors.ENDC)
 
-total *= 3
+total *= 2
 color  = bcolors.OKBLUE if (fails == 0) else bcolors.FAIL
 print(color + "%.2f%% passed."%(100 * (total - fails) / total) + bcolors.ENDC)

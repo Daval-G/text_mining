@@ -51,7 +51,7 @@ bool strcmp_ranged(const char *w1, const char *w2, unsigned s1, unsigned s2)
 
     if (s1 == 0 || s2 == 0)
         return ! (s2 == 0);
-    return (*(const unsigned char*) w1 - *(const unsigned char*) w2) > 0;
+    return (*(const unsigned char*) w1 - *(const unsigned char*) w2) < 0;
 }
 
 /**
