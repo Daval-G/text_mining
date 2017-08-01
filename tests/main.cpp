@@ -126,8 +126,8 @@ int main(int argc, char *argv[])
 {
     // STRUCTURE TEST
     std::vector<std::string> v;
-    v.push_back("haha");
-    v.push_back("hahi");
+    v.push_back("dioups");
+    v.push_back("dioup");
     v.push_back("haha");
     v.push_back("hahu");
     v.push_back("halo");
