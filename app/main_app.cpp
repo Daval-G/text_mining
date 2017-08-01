@@ -110,22 +110,15 @@ int main(int argc, char *argv[])
         word = &token[0];
 
         std::map<unsigned, CPTrieDisk::Result> map = dict.distance_map(word, strlen(word), distance);
-
-        std::cerr << "NO ERR" << std::endl;
-        std::flush(std::cerr);
-        
         results = std::vector<std::pair<unsigned, CPTrieDisk::Result>>(map.begin(), map.end());
-
-        std::cerr << "NO ERR" << std::endl;
-        std::flush(std::cerr);
-
         std::sort(results.begin(), results.end(), compare);
 
+        auto last = results[results.size() - 1];
         std::cout << "[";
         for (auto result: results)
         {
-            printf("{\"word\":%.*s,\"freq\":%ld,\"distance\":%u}", result.second.size, result.second.word, result.second.freq, result.second.distance);
-            if (&result != &results.back())
+            printf("{\"word\":\"%.*s\",\"freq\":%ld,\"distance\":%u}", result.second.size, result.second.word, result.second.freq, result.second.distance);
+            if (result.first != last.first)
                 std::cout << ",";
         }
         std::cout << "]" << std::endl;
