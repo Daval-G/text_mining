@@ -74,21 +74,12 @@ class CPTrieDisk
         void write(std::ostream& os);
         void read(std::istream& is);
         std::vector<Result> distance(char* word, unsigned char size, unsigned max_distance);
-        std::map<unsigned, Result> distance_map(char* word, unsigned char size, unsigned max_distance);
+        void distance_map(std::map<unsigned, Result>& res, char* word, unsigned char size, unsigned max_distance);
         void distance_rec(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous);
-        void distance_rec_map(char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous);
+        void distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous);
         void distance_other(char* word, unsigned char size, std::vector<Result>& res, unsigned distance);
         void distance_rec_other(char* word, unsigned char size, std::vector<Result>& res, unsigned distance, unsigned index, unsigned cum);
 
     private:
         std::vector<Node> nodes;
-};
-
-struct Result
-{
-    Result() : word(NULL), frequence(0), distance(0) {}
-    Result(char *w, long f, size_t d) : word(w), frequence(f), distance(d) {}
-    char *word;
-    long frequence;
-    size_t distance;
 };

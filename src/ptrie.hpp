@@ -59,7 +59,6 @@ class PTrie
         void add(std::string& word, long freq = 0, int j = 0);
         void add(std::string& word, int j = 0);
         bool remove(std::string& word, int j = 0);
-        void distance(std::string& word);
         friend std::ostream& operator <<(std::ostream& stream, const PTrie& trie)
         {
             stream << trie.get_root();

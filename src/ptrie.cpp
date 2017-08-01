@@ -63,10 +63,6 @@ bool PTrie::remove(std::string& word, int j)
     return false;
 }
 
-void PTrie::distance(std::string& word)
-{
-    //TODO
-}
 
 /**
  * \fn void PTrie::add(std::string& word, long freq, int j)

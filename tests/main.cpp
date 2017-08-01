@@ -80,31 +80,39 @@ void test_performances(CPTrieDisk dict)
     std::cout << "Distance 0: " << std::endl;
     clock_t tStart = clock();
     for (int i = 0; i < 3000; ++i)
-        std::map<unsigned, CPTrieDisk::Result> my_map = dict.distance_map(wor, 7, 0);
+    {
+        std::map<unsigned, CPTrieDisk::Result> my_map;
+        dict.distance_map(my_map, wor, 7, 0);
+    }
     printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
     std::cout << "Distance 1: " << std::endl;
     tStart = clock();
     for (int i = 0; i < 300; ++i)
-        std::map<unsigned, CPTrieDisk::Result> my_map = dict.distance_map(wor, 7, 1);
+    {
+        std::map<unsigned, CPTrieDisk::Result> my_map;
+        dict.distance_map(my_map, wor, 7, 1);
+    }
     printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
     std::cout << "Distance 2: " << std::endl;
     tStart = clock();
     for (int i = 0; i < 30; ++i)
-        std::map<unsigned, CPTrieDisk::Result> my_vector = dict.distance_map(wor, 7, 2);
+    {
+        std::map<unsigned, CPTrieDisk::Result> my_map;
+        dict.distance_map(my_map, wor, 7, 2);
+    }
     printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
     std::cout << "Distance 3: " << std::endl;
     tStart = clock();
     for (int i = 0; i < 10; ++i)
-        std::map<unsigned, CPTrieDisk::Result> my_vector = dict.distance_map(wor, 7, 3);
+    {
+        std::map<unsigned, CPTrieDisk::Result> my_map;
+        dict.distance_map(my_map, wor, 7, 3);
+    }
     printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
-    std::cout << "Distance 4: " << std::endl;
-    tStart = clock();
-    std::map<unsigned, CPTrieDisk::Result> my_vector = dict.distance_map(wor, 7, 4);
-    printf("Time:\t%.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 }
 
 /**
@@ -136,6 +144,7 @@ int main(int argc, char *argv[])
     u.push_back(697);
 
     CPTrieDisk trie(v, u);
+
     std::cout << "Structure size:\t" << sizeof(CPTrieDisk::Node) << std::endl;
 
     v.clear();

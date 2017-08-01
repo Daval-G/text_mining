@@ -109,7 +109,8 @@ int main(int argc, char *argv[])
         std::cin >> token;
         word = &token[0];
 
-        std::map<unsigned, CPTrieDisk::Result> map = dict.distance_map(word, strlen(word), distance);
+        std::map<unsigned, CPTrieDisk::Result> map;
+        dict.distance_map(map, word, strlen(word), distance);
         results = std::vector<std::pair<unsigned, CPTrieDisk::Result>>(map.begin(), map.end());
         std::sort(results.begin(), results.end(), compare);
 

@@ -7,7 +7,7 @@
  */
 
 /**
- * \fn std::map<unsigned, CPTrieDisk::Result> CPTrieDisk::distance_map(char* word, unsigned char size, unsigned max_distance)
+ * \fn void CPTrieDisk::distance_map(std::map<unsigned, Result>& res, char* word, unsigned char size, unsigned max_distance)
  * \brief Calcule les mots à une certaine distance.
  *
  * \param word Mot de référence.
@@ -15,53 +15,59 @@
  * \param max_distance Distance maximale autorisée.
  * \return Une map de tous les résultats.
  */
-std::map<unsigned, CPTrieDisk::Result> CPTrieDisk::distance_map(char* word, unsigned char size, unsigned max_distance)
+void CPTrieDisk::distance_map(std::map<unsigned, Result>& res, char* word, unsigned char size, unsigned max_distance)
 {
-    std::map<unsigned, Result> res;
-    distance_rec_map(word, size, res, max_distance + 1, 0, 0, 0, max_distance + 1, 0, 0);
-    return res;
+    char* current_word = new char[256];
+    distance_rec_map(current_word, 0, word, size, res, max_distance + 1, 0, 0, 0, max_distance + 1, 0, 0);
 }
 
 /**
- * \fn void CPTrieDisk::distance_rec_map(char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
+ * \fn void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
  * \brief Traite récursivement les distances.
  */
-void CPTrieDisk::distance_rec_map(char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
+void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, char* word, unsigned char size, std::map<unsigned, Result>& res, unsigned distance, unsigned index, unsigned char i, unsigned char j, unsigned max_distance, char previous_letter, char word_previous)
 {
     if (!distance)
         return;
     if (i < nodes[index].size)
     {
         if (j < size && word[j] == nodes[index].start[i])
-            distance_rec_map(word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
+            distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
         if (j < size)
         {
             // Deletion
-            distance_rec_map(word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter, word[j]);
+            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter, word[j]);
             // Replace
-            distance_rec_map(word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
+            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
         }
         // Swap
         if (previous_letter && word_previous)
         {
             if (word[j] == previous_letter && word_previous == nodes[index].start[i])
-                distance_rec_map(word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
-            distance_rec_map(word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
+                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
+            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
         }
         // Insertion
-        distance_rec_map(word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i], word_previous);
+        distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i], word_previous);
     }
     else
     {
         if (nodes[index].freq && j == size)
+        {
             if (res.find(index) == res.end())
-                res[index] = Result(nodes[index].start, nodes[index].freq, max_distance - distance, nodes[index].size);
-            else if (res[index].distance > distance)
-                res[index].distance = distance;
+            {
+                char* result = new char[cum_size];
+                memcpy(result, current_word, cum_size);
+                res[index] = Result(result, nodes[index].freq, max_distance - distance, cum_size);
+            }
+            else if (res[index].distance > max_distance - distance)
+                res[index].distance = max_distance - distance;
+        }
         unsigned new_index = nodes[index].pf;
         while (nodes[new_index].start)
         {
-            distance_rec_map(word, size, res, distance, new_index, 0, j, max_distance, previous_letter, word_previous);
+            memcpy(current_word + cum_size, nodes[new_index].start, nodes[new_index].size);
+            distance_rec_map(current_word, cum_size + nodes[new_index].size, word, size, res, distance, new_index, 0, j, max_distance, previous_letter, word_previous);
             new_index = nodes[new_index].fd;
         }
     }
