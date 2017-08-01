@@ -34,17 +34,15 @@ void CPTrieDisk::distance_rec_map(char* current_word, unsigned char cum_size, ch
         distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i, j + 1, max_distance, previous_letter, word[j]);
     if (i < nodes[index].size)
     {
-        if (j < size && word[j] == nodes[index].start[i])
-            distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
-        // Replace
         if (j < size)
-            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
-        // Swap
-        if (j < size && previous_letter && word_previous)
         {
+            // Replace
+            distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
+            if (word[j] == nodes[index].start[i])
+                distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word[j]);
+            // Swap
             if (word[j] == previous_letter && word_previous == nodes[index].start[i])
                 distance_rec_map(current_word, cum_size, word, size, res, distance, index, i + 1, j + 1, max_distance, nodes[index].start[i], word_previous);
-            //distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j + 1, max_distance, previous_letter, word[j]);
         }
         // Insertion
         distance_rec_map(current_word, cum_size, word, size, res, distance - 1, index, i + 1, j, max_distance, nodes[index].start[i], word_previous);
