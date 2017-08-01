@@ -20,11 +20,11 @@ class bcolors:
 
 def check_word(dist, word): 
     p1 = Popen(["echo", "approx %d %s"%(i, word)], stdout=PIPE)
-    p2 = Popen(["./ref/linux64/TextMiningApp", "./dict.bin"], stdin=p1.stdout, \
-                                                              stdout=PIPE,     \
-                                                              stderr=DEVNULL)
+    p2 = Popen(["./ref/linux64/TextMiningApp", "./ref/linux64/dict.bin"], stdin=p1.stdout, \
+                                                                          stdout=PIPE,     \
+                                                                          stderr=DEVNULL)
     p3 = Popen(["echo", "approx %d %s"%(i, word)], stdout=PIPE)
-    p4 = Popen(["./build/TextMiningApp", "./build/dict.bin"], stdin=p3.stdout, \
+    p4 = Popen(["./TextMiningApp", "./dict.bin"], stdin=p3.stdout, \
                                                   stdout=PIPE,     \
                                                   stderr=DEVNULL)
 
@@ -42,6 +42,10 @@ total = 0
 maxim = 1e10
 steps = 30000
 start = randint(0, steps - 1)
+pr = Popen(["./ref/linux64/TextMiningCompiler", "./words.txt", "./ref/linux64/dict.bin"])
+pu = Popen(["./TextMiningCompiler", "./words.txt", "./dict.bin"])
+pr.wait()
+pu.wait()
 with open("./words.txt", "r") as file:
     for line in file:
         total += 1
